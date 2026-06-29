@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>凹柏林 · Albert Lin · 林梓安</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@900&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --page-bg:   #EDE8E0;
+      --page-text: #1C1C1C;
+      --muted:     #7A7060;
+      --gold:      #C9A84C;
+      --coral:     #FF3D5E;
+      --navy:      #0A1628;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--page-bg);
+      color: var(--page-text);
+      font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Subtle paper grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* =============================================
+       LANDING
+    ============================================= */
+    #landing {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: clamp(36px, 7vh, 72px) clamp(24px, 8vw, 110px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(24px, 4vh, 44px);
+    }
+
+    /* --- Header --- */
+    .hero-header { animation: fadeUp 0.65s ease both; }
+
+    .greeting {
+      font-size: clamp(12px, 1.2vw, 16px);
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    /* Three equal-hierarchy names */
+    .name-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-bottom: 14px;
+      line-height: 1;
+    }
+
+    .name-en {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(30px, 4.2vw, 58px);
+      font-weight: 600;
+      color: #1C1C1C;
+      letter-spacing: -0.02em;
+    }
+
+    @keyframes nickJiggle {
+      0%   { transform: rotate(-4deg); }
+      20%  { transform: rotate(-9deg) scale(1.07); }
+      45%  { transform: rotate(-2deg) scale(1.03); }
+      70%  { transform: rotate(-7deg); }
+      100% { transform: rotate(-4deg); }
+    }
+
+    .name-nick {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: clamp(30px, 4.2vw, 58px);
+      font-weight: 900;
+      color: var(--coral);
+      letter-spacing: 0.02em;
+      display: inline-block;
+      transform: rotate(-4deg);
+      transform-origin: center bottom;
+    }
+    .name-nick.jiggle {
+      animation: nickJiggle 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    }
+
+    .name-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(30px, 4.2vw, 58px);
+      font-weight: 900;
+      color: #3A2D1E;
+      letter-spacing: 0.1em;
+    }
+
+    .name-sep {
+      font-size: clamp(20px, 2.8vw, 38px);
+      color: rgba(28,28,28,0.18);
+      padding: 0 clamp(8px, 1.1vw, 16px);
+      font-weight: 300;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .tagline {
+      font-size: clamp(14px, 1.5vw, 19px);
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* =============================================
+       BUTTONS GRID
+    ============================================= */
+    .buttons-grid {
+      animation: fadeUp 0.65s 0.1s ease both;
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      grid-template-rows: auto auto;
+      gap: clamp(10px, 1.1vw, 15px);
+      max-width: min(1080px, 100%);
+    }
+
+    .btn-card {
+      cursor: pointer;
+      border: none;
+      text-align: left;
+      padding: clamp(20px, 2.8vw, 36px);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: clamp(145px, 17vw, 220px);
+      transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1),
+                  box-shadow 0.3s ease, opacity 0.35s ease;
+    }
+
+    .btn-card:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 3px;
+    }
+
+    /* 1 · Work */
+    #btn-work {
+      background: var(--navy);
+      color: #F0EBE0;
+      border-radius: 6px;
+      transform: rotate(-1.6deg);
+      box-shadow: 4px 6px 28px rgba(10,22,40,.28);
+      grid-column: 1; grid-row: 1;
+    }
+    #btn-work:hover { transform: rotate(0) scale(1.025); box-shadow: 8px 14px 44px rgba(10,22,40,.4); }
+    #btn-work .btn-eyebrow { color: var(--gold); }
+    #btn-work .btn-label   { font-family: 'Noto Serif TC', serif; }
+    #btn-work .btn-deco    { color: var(--gold); font-size: 20px; }
+
+    /* 2 · Speaking */
+    #btn-speaking {
+      background: linear-gradient(148deg, #130730 0%, #1547A8 100%);
+      color: #FFF;
+      border-radius: 22px;
+      transform: rotate(0.8deg);
+      box-shadow: 6px 8px 36px rgba(19,7,48,.45);
+      grid-column: 2; grid-row: 1;
+    }
+    #btn-speaking:hover { transform: rotate(0) scale(1.025); box-shadow: 10px 18px 52px rgba(19,7,48,.55); }
+    #btn-speaking .btn-eyebrow { color: #7FEAFF; font-size: 11px; }
+    #btn-speaking .btn-deco    { color: rgba(127,234,255,.4); font-size: 36px; line-height:1; }
+
+    /* 3 · Collab */
+    #btn-collab {
+      background: var(--coral);
+      color: #FFF3E4;
+      border-radius: 48px 8px 8px 8px;
+      transform: rotate(1.3deg);
+      box-shadow: 4px 6px 30px rgba(255,61,94,.38);
+      grid-column: 1; grid-row: 2;
+    }
+    #btn-collab:hover { transform: rotate(0) scale(1.025); box-shadow: 8px 14px 46px rgba(255,61,94,.48); }
+    #btn-collab .btn-eyebrow { color: #BDFF00; }
+    #btn-collab .btn-deco    { color: rgba(189,255,0,.5); font-size: 28px; }
+
+    /* 4 · AI */
+    #btn-ai {
+      background: #0D1117;
+      color: #00FF94;
+      border-radius: 8px;
+      transform: rotate(-0.5deg);
+      box-shadow: 4px 6px 28px rgba(0,0,0,.55);
+      border: 1px solid rgba(0,255,148,.14);
+      grid-column: 2; grid-row: 2;
+    }
+    #btn-ai:hover { transform: rotate(0) scale(1.025); box-shadow: 6px 12px 44px rgba(0,0,0,.65), 0 0 48px rgba(0,255,148,.08); }
+    #btn-ai .btn-eyebrow { color: #00C8FF; font-family: 'Space Mono', monospace; font-size: 11px; }
+    #btn-ai .btn-label   { font-family: 'Space Mono', monospace; }
+    #btn-ai .btn-deco    { color: rgba(0,200,255,.45); font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: .04em; }
+
+    .btn-eyebrow {
+      font-size: 11px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      opacity: .85;
+      margin-bottom: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .btn-label {
+      font-size: clamp(16px, 2.1vw, 28px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -.01em;
+    }
+
+    /* =============================================
+       OVERLAY
+    ============================================= */
+    #overlay {
+      position: fixed;
+      z-index: 800;
+      opacity: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #overlay-scroll {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity .38s ease;
+    }
+
+    #overlay-scroll.show { opacity: 1; }
+
+    #overlay-inner {
+      padding: clamp(52px, 8vh, 92px) clamp(28px, 10vw, 140px) 80px;
+      min-height: 100%;
+    }
+
+    .content-wrap { max-width: 800px; }
+
+    /* Generic card typography */
+    .c-eyebrow {
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .38;
+      margin-bottom: 20px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .c-headline {
+      font-size: clamp(34px, 5.5vw, 68px);
+      font-weight: 700;
+      line-height: 1.06;
+      letter-spacing: -.025em;
+      margin-bottom: 26px;
+    }
+    .c-intro {
+      font-size: clamp(15px, 1.3vw, 18px);
+      line-height: 1.78;
+      opacity: .82;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+    .c-divider {
+      height: 1px;
+      background: rgba(255,255,255,.12);
+      margin-bottom: 26px;
+    }
+    .c-section-label {
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      opacity: .38;
+      margin-bottom: 14px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .c-services {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 11px;
+      margin-bottom: 40px;
+    }
+    .c-service {
+      padding: 16px 18px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .c-service-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+    .c-service-desc  { font-size: 13px; opacity: .62; line-height: 1.52; }
+    .c-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .c-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+      white-space: nowrap;
+    }
+    .c-cta-btn:hover { transform: scale(1.05); box-shadow: 0 8px 28px rgba(0,0,0,.28); }
+    .c-cta-note { font-size: 13px; opacity: .42; word-break: break-all; }
+
+    .c-tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+    .c-tool-chip {
+      padding: 5px 13px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.02em;
+      border: 1px solid;
+    }
+
+    /* Instagram block */
+    .c-ig-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+    .c-ig-label {
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      opacity: .38;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .c-ig-handle {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #FFF3E4;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .01em;
+      padding: 8px 18px;
+      border-radius: 100px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.18);
+      transition: background .2s ease, transform .2s ease;
+    }
+    .c-ig-handle:hover {
+      background: rgba(255,255,255,.18);
+      transform: scale(1.04);
+    }
+
+    /* Contract button */
+    .c-contract-btn {
+      margin-top: 20px;
+      background: transparent;
+      border: 1px solid rgba(255,243,228,.25);
+      color: rgba(255,243,228,.55);
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: .02em;
+      transition: all .2s ease;
+      display: inline-block;
+    }
+    .c-contract-btn:hover {
+      background: rgba(255,255,255,.08);
+      color: rgba(255,243,228,.85);
+      border-color: rgba(255,243,228,.4);
+    }
+
+    /* =============================================
+       AI CARD CONTENT
+    ============================================= */
+    .ai-section { margin-bottom: 32px; }
+
+    .ai-section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: #00C8FF;
+      letter-spacing: .07em;
+      margin-bottom: 14px;
+      opacity: .75;
+    }
+
+    .ai-prose {
+      font-size: clamp(14px, 1.25vw, 16px);
+      line-height: 1.82;
+      color: rgba(0,255,148,.7);
+      font-family: 'Space Grotesk', sans-serif;
+      max-width: 640px;
+    }
+
+    .ai-prose + .ai-prose { margin-top: 14px; }
+
+    .ai-conditions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 18px;
+    }
+
+    .ai-chip {
+      font-size: 12px;
+      font-family: 'Space Mono', monospace;
+      color: #00C8FF;
+      background: rgba(0,200,255,.07);
+      border: 1px solid rgba(0,200,255,.22);
+      padding: 5px 12px;
+      border-radius: 4px;
+      letter-spacing: .02em;
+    }
+
+    .ai-not-for {
+      margin-top: 22px;
+      padding: 16px 20px;
+      border-left: 2px solid rgba(0,200,255,.25);
+      background: rgba(0,0,0,.25);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .ai-not-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: rgba(0,200,255,.45);
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+
+    .ai-not-item {
+      font-size: 13px;
+      font-family: 'Space Grotesk', sans-serif;
+      color: rgba(0,255,148,.45);
+      line-height: 1.65;
+      padding-left: 18px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .ai-not-item:last-child { margin-bottom: 0; }
+    .ai-not-item::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: rgba(0,200,255,.4);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Contract Modal */
+    #contract-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    #contract-modal.open { display: flex; }
+
+    .contract-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .contract-box {
+      position: relative;
+      z-index: 1;
+      background: #1A1008;
+      border: 1px solid rgba(201,168,76,.3);
+      border-radius: 16px;
+      padding: 40px 44px;
+      max-width: 560px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      color: #F0EBE0;
+      font-family: 'Space Grotesk', sans-serif;
+      box-shadow: 0 32px 80px rgba(0,0,0,.6);
+      animation: contractIn .3s cubic-bezier(.34,1.4,.64,1) both;
+    }
+
+    @keyframes contractIn {
+      from { opacity:0; transform: scale(.92) translateY(12px); }
+      to   { opacity:1; transform: scale(1)  translateY(0); }
+    }
+
+    .contract-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: rgba(255,255,255,.08);
+      border: none;
+      color: rgba(240,235,224,.6);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s ease;
+    }
+    .contract-close:hover { background: rgba(255,255,255,.15); color: #F0EBE0; }
+
+    .contract-eyebrow {
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #C9A84C;
+      margin-bottom: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .contract-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #F0EBE0;
+      margin-bottom: 28px;
+      letter-spacing: -.01em;
+    }
+
+    .contract-terms {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contract-terms li {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(240,235,224,.78);
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .contract-terms li::before {
+      content: '*';
+      position: absolute;
+      left: 0;
+      color: #C9A84C;
+      font-weight: 700;
+    }
+
+    @media (max-width: 480px) {
+      .contract-box { padding: 28px 22px; }
+    }
+
+    /* =============================================
+       RESUME (work card specific)
+    ============================================= */
+    .resume-lang-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .rl-btn {
+      padding: 5px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(201,168,76,.35);
+      background: transparent;
+      color: rgba(240,235,224,.45);
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: .05em;
+      transition: all .2s ease;
+    }
+    .rl-btn.active {
+      background: var(--gold);
+      color: var(--navy);
+      border-color: var(--gold);
+    }
+
+    .resume-content { display: block; }
+
+    .rs-section { margin-bottom: 36px; }
+
+    .rs-section-title {
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-family: 'Space Grotesk', sans-serif;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(201,168,76,.2);
+    }
+
+    .rs-entry {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(240,235,224,.07);
+    }
+    .rs-entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .rs-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .rs-org   { font-size: 15px; font-weight: 700; color: #F0EBE0; display: block; }
+    .rs-role  { font-size: 12px; color: rgba(240,235,224,.55); display: block; margin-top: 2px; }
+    .rs-date  {
+      font-size: 11px;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .rs-sub { margin-top: 14px; }
+
+    .rs-sub-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(201,168,76,.7);
+      margin-bottom: 7px;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: .03em;
+    }
+
+    .rs-bullets {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .rs-bullets li {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(240,235,224,.72);
+      padding-left: 16px;
+      position: relative;
+    }
+    .rs-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: rgba(201,168,76,.6);
+      font-size: 10px;
+      top: 4px;
+    }
+
+    /* =============================================
+       CLOSE BUTTON
+    ============================================= */
+    #close-btn {
+      position: fixed;
+      top: 22px;
+      right: 26px;
+      z-index: 900;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: rgba(255,255,255,.9);
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease, transform .2s ease, background .2s ease;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    #close-btn.show { opacity: 1; pointer-events: all; }
+    #close-btn:hover { transform: scale(1.12) rotate(90deg); background: rgba(0,0,0,.5); }
+
+    /* =============================================
+       ANIMATIONS & RESPONSIVE
+    ============================================= */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 680px) {
+      .buttons-grid { grid-template-columns: 1fr; }
+      .btn-card { transform: none !important; min-height: 125px; }
+      #btn-collab { border-radius: 20px; }
+      .c-services { grid-template-columns: 1fr; }
+      .name-hero { font-size: clamp(56px, 18vw, 96px); }
+      .rs-header { flex-direction: column; gap: 4px; }
+    }
+
+    @media (max-width: 480px) {
+      #overlay-inner { padding: 52px 20px 52px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =============================================
+     LANDING
+============================================= -->
+<section id="landing">
+  <header class="hero-header">
+    <p class="greeting">Hi，我是</p>
+    <div class="name-row">
+      <span class="name-en">Albert Lin</span>
+      <span class="name-sep">·</span>
+      <span class="name-zh">林梓安</span>
+      <span class="name-sep">·</span>
+      <span class="name-nick">凹柏林</span>
+    </div>
+    <p class="tagline">找我有什麼事嗎？</p>
+  </header>
+
+  <div class="buttons-grid">
+
+    <button class="btn-card" id="btn-work" onclick="openCard(this,'work')" aria-label="正職工作機會邀約">
+      <div>
+        <p class="btn-eyebrow">正職工作機會邀約</p>
+        <p class="btn-label">來我們公司上班？</p>
+      </div>
+      <div class="btn-deco">→</div>
+    </button>
+
+    <button class="btn-card" id="btn-speaking" onclick="openCard(this,'speaking')" aria-label="演講授課邀約">
+      <div>
+        <p class="btn-eyebrow">演講 · 授課邀約</p>
+        <p class="btn-label">想聽你講 AI 課</p>
+      </div>
+      <div class="btn-deco">✦</div>
+    </button>
+
+    <button class="btn-card" id="btn-collab" onclick="openCard(this,'collab')" aria-label="社群業配合作">
+      <div>
+        <p class="btn-eyebrow">社群業配合作</p>
+        <p class="btn-label">我來贊助你拍片</p>
+      </div>
+      <div class="btn-deco">☆</div>
+    </button>
+
+    <button class="btn-card" id="btn-ai" onclick="openCard(this,'ai')" aria-label="AI系統建置與人力資源顧問">
+      <div>
+        <p class="btn-eyebrow">// AI 系統建置 &amp; 人力資源顧問</p>
+        <p class="btn-label">直接幫我建個系統好了</p>
+      </div>
+      <div class="btn-deco">→ deploy</div>
+    </button>
+
+  </div>
+</section>
+
+
+<!-- =============================================
+     OVERLAY
+============================================= -->
+<div id="overlay" role="dialog" aria-modal="true">
+  <div id="overlay-scroll">
+    <div id="overlay-inner">
+      <div class="content-wrap" id="content-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<button id="close-btn" onclick="closeCard()" aria-label="關閉">✕</button>
+
+<!-- Contract Modal -->
+<div id="contract-modal" role="dialog" aria-modal="true" aria-label="合作備忘錄">
+  <div class="contract-backdrop" onclick="closeContract()"></div>
+  <div class="contract-box">
+    <button class="contract-close" onclick="closeContract()" aria-label="關閉">✕</button>
+    <p class="contract-eyebrow">COLLABORATION TERMS</p>
+    <h2 class="contract-title">嚴肅的合約</h2>
+    <ul class="contract-terms">
+      <li>腳本（接近逐字稿）、影片、文案可提供過稿 2 次，修改以錯字 &amp; 產品錯誤資訊為主，KOC 自身心得感受不提供調整，用字遣詞依個人習慣表達</li>
+      <li>影片會依實際錄製微調，不提供重拍、補拍，如有新增的修改需求，會有額外費用</li>
+      <li>剪完的影片可以修改 2 次，主要修改影片節奏、些微補充產品資訊；不接受超出原先企劃過多的修正</li>
+      <li>影片封面由 KOC 指定，不提供調整</li>
+      <li>其它合作備註待合作確認後補充</li>
+    </ul>
+  </div>
+</div>
+
+
+<script>
+/* =============================================
+   RESUME CONTENT STRINGS
+============================================= */
+const ZH_RESUME = `
+<div class="rs-section">
+  <p class="rs-section-title">學歷</p>
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">國立政治大學</span>
+        <span class="rs-role">企業管理學系</span>
+      </div>
+      <span class="rs-date">2020.9 – 2024.6</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>擔任企管大使，赴高中校園推廣企管概念，實踐雇主品牌溝通</li>
+      <li>參與 7 項商業競賽</li>
+      <li>交換生，Rotterdam School of Management, Erasmus University（2023）｜修習組織轉型、變革管理、資料分析課程</li>
+    </ul>
+  </div>
+</div>
+
+<div class="rs-section">
+  <p class="rs-section-title">工作經歷</p>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">VITABOX</span>
+        <span class="rs-role">People Partner</span>
+      </div>
+      <span class="rs-date">2025.12 – 2026.5</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>建立自動化薪酬與人事行政流程，將例行行政作業時間縮減約 50%，並完整建立 SOP 文件確保流程可被標準化和長期存在</li>
+      <li>主導福利預算盤點，透過結構性分析找出冗餘福利項目並進行調整，優化薪資與福利的整體比例，在不影響主要員工體驗的前提下提升薪酬資源配置效率</li>
+      <li>設計全公司績效考核框架，整合 HRM、HRD 系統資料建立人才主檔，引導員工自定義核心交付物以釐清職責認知，再由主管依核心職能與專業職能進行評估，縮短主管與員工間的期望落差</li>
+    </ul>
+  </div>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">信義房屋</span>
+        <span class="rs-role">Management Associate</span>
+      </div>
+      <span class="rs-date">2024.7 – 2025.11</span>
+    </div>
+    <div class="rs-sub">
+      <p class="rs-sub-label">業務輪調｜2024.7 – 2024.12</p>
+      <ul class="rs-bullets">
+        <li>於分店執行第一線房仲業務，完成 2 件物件成交，深入理解前線業務運作與客戶溝通模式</li>
+      </ul>
+    </div>
+    <div class="rs-sub">
+      <p class="rs-sub-label">AI 應用發展部輪調｜2025.1 – 2025.6</p>
+      <ul class="rs-bullets">
+        <li>主導 Power BI 數據民主化專案，透過帶狀 SQL 與 Power BI 工作坊培育 25 位跨部門數據種子，協助 7 個部門（多數成員零 data 背景）自主開發並上線逾 20 張儀表板，降低對 IT 的數據依賴</li>
+        <li>建置業務主管 AI 教育訓練機器人，透過 RAG 技術整合歷史訓練資料，設計三模式意圖識別機制（即時求助／主動學習／管理教練），協助主管在法規與道德灰色地帶情境中做出合規決策</li>
+      </ul>
+    </div>
+    <div class="rs-sub">
+      <p class="rs-sub-label">HR 輪調｜2025.7 – 2025.11</p>
+      <ul class="rs-bullets">
+        <li>分析近五年 5,000 名新人資料，從 1,800 位成功轉正員工中萃取 21 項職業背景標籤，識別餐飲、零售等高轉正率族群，作為精準招募策略基礎</li>
+        <li>針對高潛力族群設計線上線下招募活動，邀請相同背景轉職者現身說法，搭配一日體驗活動，共吸引 2,500 人報名、350 人出席、45 人投遞</li>
+        <li>提出新人期薪酬結構調整提案，結合獎金機制與假期優化，設計涵蓋招募漏斗前端至試用期的完整人才發展路徑；提案於 2026.3 獲公司採納上線</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">Deloitte</span>
+        <span class="rs-role">HR Transformation Intern</span>
+      </div>
+      <span class="rs-date">2024.1 – 2024.6</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>參與 SAP SuccessFactors Succession 模組導入專案，服務對象為 1,500 人、23 部門之上市 IC 設計公司</li>
+      <li>執行全面工作分析，跨科、部、處、BU 四層架構訪談員工與主管，逐層生成 JD 與 Job Spec，並透過雙向比對揭露主管與員工對職責認知的落差</li>
+      <li>透過職能字典整合與職位 matching，識別跨部門重複或高度相似職位，推動職能描述標準化，提升組織人才數據的精準度與可用性，最終成功建置人才市場模組，為接班規劃與內部調動奠定數據基礎</li>
+    </ul>
+  </div>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">Ecolab</span>
+        <span class="rs-role">Talent Acquisition Intern</span>
+      </div>
+      <span class="rs-date">2023.9 – 2024.1</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>規劃校園招募攤位動線、視覺設計與候選人體驗，成果應用於 3 場校園徵才活動</li>
+      <li>制定 LinkedIn 雇主品牌操作指南，涵蓋內容策略、貼文格式與視覺規範，協助台灣團隊建立社群發文標準</li>
+      <li>提出 Podcast 製作、校園大使計畫等中長期招募策略提案，納入部門次年度規劃</li>
+    </ul>
+  </div>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">Dcard</span>
+        <span class="rs-role">People Operations Intern</span>
+      </div>
+      <span class="rs-date">2022.7 – 2023.1</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>負責軟體工程師社群經營，管理 Facebook 社群與 Medium 技術部落格發文排程，深入研讀技術文章並撰寫摘要，7 個月內將社群追蹤數從 1,000 成長至 2,500</li>
+      <li>統籌技術分享會（線上／線下），打造資深工程師個人品牌，透過「技術分享」策略強化公司在工程師社群中的吸引力</li>
+      <li>執行招募行政作業，包含面試安排、候選人 Office Tour 接待與人才 Sourcing，參與完整招募週期</li>
+    </ul>
+  </div>
+</div>
+`;
+
+const EN_RESUME = `
+<div class="rs-section">
+  <p class="rs-section-title">Education</p>
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">National Chengchi University</span>
+        <span class="rs-role">Department of Business Administration</span>
+      </div>
+      <span class="rs-date">Sep 2020 – Jun 2024</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>Served as a Business Administration Ambassador, visiting high schools to communicate the value of a business education — an early foray into employer branding</li>
+      <li>Participated in 7 business case competitions</li>
+      <li>Exchange Student, Rotterdam School of Management, Erasmus University (2023) | Coursework in organizational transformation, change management, and data analytics</li>
+    </ul>
+  </div>
+</div>
+
+<div class="rs-section">
+  <p class="rs-section-title">Work Experience</p>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">VITABOX</span>
+        <span class="rs-role">People Partner</span>
+      </div>
+      <span class="rs-date">Dec 2025 – May 2026</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>Automated payroll and HR administrative workflows, reducing routine task time by 50%; built comprehensive SOPs to ensure process continuity and handover readiness</li>
+      <li>Audited the company's benefits budget to identify misaligned benefits-to-salary ratios; restructured the benefits package by eliminating excessive spending while preserving key employee perks, improving overall compensation efficiency</li>
+      <li>Designed a company-wide performance review framework, integrating HRM and HRD data into Notion via Make.com API; guided employees to define their core deliverables to surface role clarity, enabling managers to evaluate performance against both core and functional competencies, reducing expectation gaps between managers and employees</li>
+    </ul>
+  </div>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">Sinyi Realty</span>
+        <span class="rs-role">Management Associate</span>
+      </div>
+      <span class="rs-date">Jul 2024 – Nov 2025</span>
+    </div>
+    <div class="rs-sub">
+      <p class="rs-sub-label">Sales Rotation｜Jul – Dec 2024</p>
+      <ul class="rs-bullets">
+        <li>Worked as a frontline real estate agent at a branch office, successfully closing 2 transactions and gaining firsthand understanding of sales operations and client relationship dynamics</li>
+      </ul>
+    </div>
+    <div class="rs-sub">
+      <p class="rs-sub-label">AI Application Development Dept. Rotation｜Jan – Jun 2025</p>
+      <ul class="rs-bullets">
+        <li>Conducted a data democratization initiative, delivering a series of SQL and Power BI workshops to train 25 cross-functional data champions; enabled 7 departments (most with no prior data background) to independently develop and launch 20+ dashboards, reducing reliance on IT for routine data access</li>
+        <li>Built an AI-powered training chatbot for sales managers using RAG on historical L&amp;D materials; designed a three-mode intent detection system (immediate SOS / self-directed learning / managerial coaching) to guide managers through regulatory and ethical gray areas in real-world scenarios</li>
+      </ul>
+    </div>
+    <div class="rs-sub">
+      <p class="rs-sub-label">Human Resources Dept. Rotation｜Jul – Nov 2025</p>
+      <ul class="rs-bullets">
+        <li>Analyzed 5 years of new hire data across 5,000 recruits; extracted 21 occupational background tags from 1,800 employees who successfully passed probation, identifying high-conversion profiles (e.g., F&amp;B, retail) as the foundation for a targeted recruitment strategy</li>
+        <li>Designed an integrated online/offline recruitment campaign for high-potential talent segments, featuring peer-to-peer storytelling from career changers and a one-day job shadow experience; generated 2,500 registrations, 350 attendees, and 45 applications</li>
+        <li>Proposed a restructured new-hire compensation framework incorporating performance-based incentives and improved leave policies to create a more compelling early-career talent journey; the proposal was officially adopted by the company in March 2026</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">Deloitte</span>
+        <span class="rs-role">HR Transformation Intern</span>
+      </div>
+      <span class="rs-date">Jan – Jun 2024</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>Supported the implementation of SAP SuccessFactors Succession module for a publicly listed IC design company with 1,500 employees across 23 departments</li>
+      <li>Conducted organization-wide job analysis across four hierarchical levels (team, department, division, BU), interviewing both individual contributors and managers to generate JDs and Job Specs, and cross-referencing responses to surface misalignments in role understanding</li>
+      <li>Consolidated a competency dictionary and matched overlapping or near-duplicate roles across departments; facilitated cross-functional alignment sessions to standardize competency language, ultimately enabling the successful build-out of a talent marketplace module to support succession planning and internal mobility</li>
+    </ul>
+  </div>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">Ecolab</span>
+        <span class="rs-role">Talent Acquisition Intern</span>
+      </div>
+      <span class="rs-date">Sep 2023 – Jan 2024</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>Designed booth layout, traffic flow, and candidate experience for campus recruitment events; execution applied across 3 campus career fairs</li>
+      <li>Developed a LinkedIn employer branding playbook for the Taiwan team, covering content strategy, post formats, and visual guidelines to establish consistent social media standards</li>
+      <li>Proposed mid-to-long-term talent acquisition initiatives including a podcast series and campus ambassador program; recommendations incorporated into the department's following year roadmap</li>
+    </ul>
+  </div>
+
+  <div class="rs-entry">
+    <div class="rs-header">
+      <div>
+        <span class="rs-org">Dcard</span>
+        <span class="rs-role">People Operations Intern</span>
+      </div>
+      <span class="rs-date">Jul 2022 – Jan 2023</span>
+    </div>
+    <ul class="rs-bullets">
+      <li>Managed employer branding for the engineering team via Facebook community and Medium technical blog; curated and summarized engineering articles (without AI tooling) to maintain publishing cadence, growing the community following from 1,000 to 2,500 in 7 months</li>
+      <li>Organized online and offline tech talks featuring senior engineers, building individual thought leadership to strengthen Dcard's positioning in the engineering talent market</li>
+      <li>Supported full-cycle recruiting operations including interview scheduling, candidate office tours, and talent sourcing</li>
+    </ul>
+  </div>
+</div>
+`;
+
+/* =============================================
+   CARD DATA
+============================================= */
+const CARDS = {
+  work: {
+    bg:       '#0A1628',
+    color:    '#F0EBE0',
+    accent:   '#C9A84C',
+    font:     "'Noto Serif TC', serif",
+    eyebrow:  'FULL-TIME OPPORTUNITY',
+    headline: '正在找人？\n我或許是你\n在找的那個。',
+    intro:    '擅長在 AI 快速演化的環境中同時兼顧產品思維、商業判斷與組織管理。<br>有跨產業的實戰經驗，能在資源有限的情境下快速推進，也習慣在不確定的局面裡找到清晰的路徑。',
+    ctaText:  '用 Gmail 寄信約聊',
+    ctaHref:  'https://mail.google.com/mail/?view=cm&fs=1&to=albertlin0531@gmail.com&su=%E6%AD%A3%E8%81%B7%E5%B7%A5%E4%BD%9C%E6%A9%9F%E6%9C%83%E9%82%80%E7%B4%84',
+    ctaBg:    '#C9A84C',
+    ctaColor: '#0A1628',
+    note:     'albertlin0531@gmail.com',
+  },
+  speaking: {
+    bg:       'linear-gradient(152deg,#0E0621 0%,#10307A 55%,#1547A8 100%)',
+    solidBg:  '#0E0621',
+    color:    '#FFFFFF',
+    accent:   '#7FEAFF',
+    font:     "'Space Grotesk', sans-serif",
+    eyebrow:  'SPEAKING & TEACHING',
+    headline: '想聽 AI\n實戰故事？',
+    intro:    '從基礎的工具開箱，到 AI 時代的協作和工具使用思維。<br>透過「無視效率的練習」，思考工作的本質，讓 AI 真正帶動效率與成長。',
+    services: [
+      { t: '企業內訓',     d: '從 AI 工具基礎到進階應用，設計符合公司情境的實戰課程，可單次或系列規劃' },
+      { t: '線上課程合作', d: '課程平台、社群課程、影音內容等各種線上合作形式' },
+    ],
+    tools:    ['ChatGPT', 'Gemini', 'Claude', 'NotebookLM', 'Canva', 'PowerPoint', 'Google Apps Script'],
+    ctaText:  '填寫邀請需求',
+    ctaHref:  'https://mail.google.com/mail/?view=cm&fs=1&to=albertlin0531@gmail.com&su=%E6%BC%94%E8%AC%9B%E6%8E%88%E8%AA%B2%E9%82%80%E7%B4%84',
+    ctaBg:    '#7FEAFF',
+    ctaColor: '#060320',
+    note:     'albertlin0531@gmail.com',
+  },
+  collab: {
+    bg:       '#FF3D5E',
+    color:    '#FFF3E4',
+    accent:   '#BDFF00',
+    font:     "'Space Grotesk', sans-serif",
+    eyebrow:  'SOCIAL COLLABORATION',
+    headline: '謝謝你贊助ㄕ業人士',
+    intro:    '目前在 Instagram 上主要更新失業日記，從食物、旅遊、日常 vlog 到 AI 工具都拍，有時候是混在一起的。合作對象沒有特別限制，只要產品或服務是我真的可以拍出來的都行，當然希望可以體驗過最好。',
+    services: [
+      { t: '業配 & 開箱',   d: '食物、旅遊、AI 工具、科技產品都可以' },
+      { t: '長期品牌夥伴',   d: '有興趣建立長期合作關係的品牌歡迎聊' },
+    ],
+    igHandle: 'albertlin0531',
+    ctaText:  '傳 DM 給我',
+    ctaHref:  'https://mail.google.com/mail/?view=cm&fs=1&to=albertlin0531@gmail.com&su=%E7%A4%BE%E7%BE%A4%E6%A5%AD%E9%85%8D%E5%90%88%E4%BD%9C%E9%82%80%E7%B4%84',
+    ctaBg:    '#BDFF00',
+    ctaColor: '#1A1A0A',
+    note:     '或直接寄信到 albertlin0531@gmail.com',
+  },
+  ai: {
+    bg:       '#0D1117',
+    color:    '#00FF94',
+    accent:   '#00C8FF',
+    font:     "'Space Mono', monospace",
+    eyebrow:  '// AI & HR CONSULTING',
+    headline: '好啊！\n但先和你解釋一下我的服務',
+    ctaText:  '> 聊聊你的需求',
+    ctaHref:  'https://mail.google.com/mail/?view=cm&fs=1&to=albertlin0531@gmail.com&su=AI%E7%B3%BB%E7%B5%B1%E5%BB%BA%E7%BD%AE%E9%A1%A7%E5%95%8F%E8%AB%AE%E8%A9%A2',
+    ctaBg:    '#00FF94',
+    ctaColor: '#0D1117',
+    note:     'albertlin0531@gmail.com',
+  },
+};
+
+/* Gmail icon SVG */
+const GMAIL_ICON = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0">
+  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+</svg>`;
+
+/* =============================================
+   STATE
+============================================= */
+let isOpen     = false;
+let activeBtn  = null;
+let activeRect = null;
+
+/* =============================================
+   OPEN
+============================================= */
+function openCard(btnEl, cardId) {
+  if (isOpen) return;
+  isOpen = true;
+  activeBtn = btnEl;
+
+  const data     = CARDS[cardId];
+  const overlay  = document.getElementById('overlay');
+  const oscroll  = document.getElementById('overlay-scroll');
+  const cwrap    = document.getElementById('content-wrap');
+  const closeBtn = document.getElementById('close-btn');
+
+  activeRect = btnEl.getBoundingClientRect();
+
+  // Build content
+  if      (cardId === 'work') cwrap.innerHTML = buildWorkContent(data);
+  else if (cardId === 'ai')   cwrap.innerHTML = buildAIContent(data);
+  else                        cwrap.innerHTML = buildContent(data);
+
+  // Style overlay
+  overlay.style.background  = data.bg;
+  overlay.style.color       = data.color;
+  overlay.style.fontFamily  = data.font;
+
+  // Position at button (no transition)
+  overlay.style.transition    = 'none';
+  overlay.style.borderRadius  = getComputedStyle(btnEl).borderRadius;
+  overlay.style.top    = activeRect.top    + 'px';
+  overlay.style.left   = activeRect.left   + 'px';
+  overlay.style.width  = activeRect.width  + 'px';
+  overlay.style.height = activeRect.height + 'px';
+  overlay.style.opacity       = '0';
+  overlay.style.pointerEvents = 'all';
+  oscroll.classList.remove('show');
+  oscroll.style.overflow = 'hidden';
+
+  // Fade out all buttons
+  document.querySelectorAll('.btn-card').forEach(b => {
+    b.style.transition    = 'opacity .22s ease';
+    b.style.opacity       = '0';
+    b.style.pointerEvents = 'none';
+  });
+
+  // Reveal overlay then expand
+  requestAnimationFrame(() => {
+    overlay.style.opacity = '1';
+    overlay.getBoundingClientRect(); // force reflow
+
+    overlay.style.transition = [
+      'top .52s cubic-bezier(.4,0,.2,1)',
+      'left .52s cubic-bezier(.4,0,.2,1)',
+      'width .52s cubic-bezier(.4,0,.2,1)',
+      'height .52s cubic-bezier(.4,0,.2,1)',
+      'border-radius .52s cubic-bezier(.4,0,.2,1)',
+    ].join(',');
+
+    overlay.style.top          = '0';
+    overlay.style.left         = '0';
+    overlay.style.width        = '100vw';
+    overlay.style.height       = '100vh';
+    overlay.style.borderRadius = '0';
+  });
+
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(() => {
+    oscroll.style.overflow = 'auto';
+    oscroll.classList.add('show');
+    closeBtn.classList.add('show');
+  }, 500);
+}
+
+/* =============================================
+   CLOSE
+============================================= */
+function closeCard() {
+  if (!isOpen) return;
+
+  const overlay  = document.getElementById('overlay');
+  const oscroll  = document.getElementById('overlay-scroll');
+  const closeBtn = document.getElementById('close-btn');
+
+  oscroll.classList.remove('show');
+  oscroll.style.overflow = 'hidden';
+  closeBtn.classList.remove('show');
+
+  setTimeout(() => {
+    overlay.style.transition = [
+      'top .46s cubic-bezier(.4,0,.2,1)',
+      'left .46s cubic-bezier(.4,0,.2,1)',
+      'width .46s cubic-bezier(.4,0,.2,1)',
+      'height .46s cubic-bezier(.4,0,.2,1)',
+      'border-radius .46s cubic-bezier(.4,0,.2,1)',
+      'opacity .38s ease .1s',
+    ].join(',');
+    overlay.style.top          = activeRect.top    + 'px';
+    overlay.style.left         = activeRect.left   + 'px';
+    overlay.style.width        = activeRect.width  + 'px';
+    overlay.style.height       = activeRect.height + 'px';
+    overlay.style.borderRadius = getComputedStyle(activeBtn).borderRadius;
+    overlay.style.opacity      = '0';
+  }, 80);
+
+  document.querySelectorAll('.btn-card').forEach(b => {
+    b.style.transition    = 'opacity .3s ease .12s';
+    b.style.opacity       = '1';
+    b.style.pointerEvents = '';
+  });
+
+  document.body.style.overflow = '';
+
+  setTimeout(() => {
+    overlay.style.pointerEvents = 'none';
+    overlay.style.transition    = 'none';
+    overlay.style.opacity       = '0';
+    isOpen     = false;
+    activeBtn  = null;
+    activeRect = null;
+  }, 640);
+}
+
+/* =============================================
+   WORK CARD — with full resume
+============================================= */
+function buildWorkContent(data) {
+  return `
+    <p class="c-eyebrow">${data.eyebrow}</p>
+    <h1 class="c-headline" style="font-family:${data.font}">${data.headline.replace(/\n/g,'<br>')}</h1>
+    <p class="c-intro">${data.intro}</p>
+
+    <div class="c-cta-row" style="margin-bottom:40px">
+      <a href="${data.ctaHref}" target="_blank" rel="noopener"
+         class="c-cta-btn"
+         style="background:${data.ctaBg};color:${data.ctaColor};font-family:${data.font}">
+        ${GMAIL_ICON}
+        ${data.ctaText}
+      </a>
+      <span class="c-cta-note">${data.note}</span>
+    </div>
+
+    <div class="c-divider"></div>
+
+    <div class="resume-lang-bar">
+      <button class="rl-btn"        id="rl-zh" onclick="switchResumeLang('zh')">中文</button>
+      <button class="rl-btn active" id="rl-en" onclick="switchResumeLang('en')">EN</button>
+    </div>
+
+    <div id="resume-zh" style="display:none">${ZH_RESUME}</div>
+    <div id="resume-en">${EN_RESUME}</div>
+  `;
+}
+
+function switchResumeLang(lang) {
+  document.getElementById('resume-zh').style.display = lang === 'zh' ? 'block' : 'none';
+  document.getElementById('resume-en').style.display = lang === 'en' ? 'block' : 'none';
+  document.getElementById('rl-zh').classList.toggle('active', lang === 'zh');
+  document.getElementById('rl-en').classList.toggle('active', lang === 'en');
+}
+
+/* =============================================
+   GENERIC CARD
+============================================= */
+function buildContent(data) {
+  const servicesHtml = (data.services || []).map(s => `
+    <div class="c-service">
+      <p class="c-service-title" style="color:${data.accent};font-family:${data.font}">${s.t}</p>
+      <p class="c-service-desc">${s.d}</p>
+    </div>
+  `).join('');
+
+  const toolsHtml = data.tools ? `
+    <div class="c-divider"></div>
+    <p class="c-section-label">工具教學清單</p>
+    <div class="c-tools-row">
+      ${data.tools.map(t => `<span class="c-tool-chip" style="color:${data.accent};border-color:${data.accent}33;background:${data.accent}0f">${t}</span>`).join('')}
+    </div>
+  ` : '';
+
+  const igHtml = data.igHandle ? `
+    <div class="c-ig-block">
+      <span class="c-ig-label">Instagram</span>
+      <a class="c-ig-handle" href="https://www.instagram.com/${data.igHandle}/" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @${data.igHandle}
+      </a>
+    </div>
+  ` : '';
+
+  const contractHtml = data.igHandle ? `
+    <button class="c-contract-btn" onclick="openContract()">嚴肅的合約 📄</button>
+  ` : '';
+
+  return `
+    <p class="c-eyebrow">${data.eyebrow}</p>
+    <h1 class="c-headline" style="font-family:${data.font}">${data.headline.replace(/\n/g,'<br>')}</h1>
+    <p class="c-intro">${data.intro}</p>
+
+    ${igHtml}
+
+    <div class="c-divider"></div>
+    <p class="c-section-label">合作方式</p>
+    <div class="c-services">${servicesHtml}</div>
+    ${toolsHtml}
+    <div class="c-divider"></div>
+
+    <div class="c-cta-row">
+      <a href="${data.ctaHref}" target="_blank" rel="noopener"
+         class="c-cta-btn"
+         style="background:${data.ctaBg};color:${data.ctaColor};font-family:${data.font}">
+        ${GMAIL_ICON}
+        ${data.ctaText}
+      </a>
+      <span class="c-cta-note">${data.note}</span>
+    </div>
+    ${contractHtml}
+  `;
+}
+
+/* =============================================
+   AI CARD
+============================================= */
+function buildAIContent(data) {
+  return `
+    <p class="c-eyebrow">${data.eyebrow}</p>
+    <h1 class="c-headline" style="font-family:${data.font}">${data.headline.replace(/\n/g,'<br>')}</h1>
+
+    <div class="ai-section">
+      <p class="ai-section-title">// AI_AUTOMATION</p>
+      <p class="ai-prose">有時候「AI 自動化」不等於「讓 AI 處理所有事」。我的理解更像是「用 AI 把自動化工具寫出來」，更便宜、維運更直覺，比把每件事都丟給 AI 燒 token 划算太多了。</p>
+      <p class="ai-prose">其實比起上課，我更喜歡跟團隊把一個小流程建起來，放進真實的工作環境裡。大家開始每天用它，就會自然地理解它、維護它、改它，慢慢變成小小開發者，然後影響旁邊的人。這才是從工作開始的 AI 轉型，不是簽收上課點名單。</p>
+    </div>
+
+    <div class="c-divider"></div>
+
+    <div class="ai-section">
+      <p class="ai-section-title">// HR_CONSULTING → 50 人以下限定</p>
+      <div class="ai-conditions">
+        <span class="ai-chip">公司規模 ≤ 50 人</span>
+        <span class="ai-chip">正在 scaleup</span>
+        <span class="ai-chip">還沒有完整職位職能系統</span>
+      </div>
+      <p class="ai-prose">透過工作分析、部門執掌、職能地圖、接班規劃，幫你建立一套可以長大的人才資料庫。</p>
+      <p class="ai-prose">讓「我們公司有幾個人、每個人在做什麼、誰可以接誰的位子」這件事，有完整的地圖和依循。</p>
+      <div class="ai-not-for">
+        <p class="ai-not-title">// NOT_FOR</p>
+        <p class="ai-not-item">大公司：小團隊如我目前還處理不來</p>
+        <p class="ai-not-item">微型企業 / 新創：人才很重要，但生存更重要，這些 fancy HR 系統等公司狀況穩定了再說</p>
+      </div>
+    </div>
+
+    <div class="c-divider"></div>
+
+    <div class="c-cta-row">
+      <a href="${data.ctaHref}" target="_blank" rel="noopener"
+         class="c-cta-btn"
+         style="background:${data.ctaBg};color:${data.ctaColor};font-family:${data.font}">
+        ${GMAIL_ICON}
+        ${data.ctaText}
+      </a>
+      <span class="c-cta-note">${data.note}</span>
+    </div>
+  `;
+}
+
+/* =============================================
+   CONTRACT MODAL
+============================================= */
+function openContract() {
+  document.getElementById('contract-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeContract() {
+  document.getElementById('contract-modal').classList.remove('open');
+  // restore scroll to overlay (which is already locked)
+}
+
+/* =============================================
+   KEYBOARD
+============================================= */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('contract-modal');
+    if (modal.classList.contains('open')) {
+      closeContract();
+    } else if (isOpen) {
+      closeCard();
+    }
+  }
+});
+
+// 凹柏林 jiggle on collab hover/touch
+(function() {
+  const btnCollab = document.getElementById('btn-collab');
+  const nameNick  = document.querySelector('.name-nick');
+  if (!btnCollab || !nameNick) return;
+  const triggerJiggle = () => {
+    nameNick.classList.remove('jiggle');
+    void nameNick.offsetWidth; // force reflow
+    nameNick.classList.add('jiggle');
+  };
+  btnCollab.addEventListener('mouseenter', triggerJiggle);
+  btnCollab.addEventListener('touchstart', triggerJiggle, { passive: true });
+  nameNick.addEventListener('animationend', () => nameNick.classList.remove('jiggle'));
+})();
+</script>
+</body>
+</html>
